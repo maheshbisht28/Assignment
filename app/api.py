@@ -8,6 +8,33 @@ app = Flask(__name__)
 
 @app.route('/run_pipeline', methods=['POST'])
 def run_pipeline():
+    """
+    Run the data pipeline on the provided CSV data.
+
+    Request JSON format:
+    {
+        "tasks": [
+            {
+                "name": "task_name",
+                "params": {"param1": value1, "param2": value2, ...}
+            },
+            ...
+        ],
+        "csv_data": "csv_data_string"
+    }
+
+    Returns:
+    Response JSON format:
+    [
+        {"task_name": {"result_key": result_value, ...}},
+        ...
+    ]
+
+    In case of error:
+    {
+        "error": "error_message"
+    }
+    """
     try:
         data = request.get_json()
         tasks = data['tasks']
@@ -23,11 +50,30 @@ def run_pipeline():
 
 @app.route('/add_task', methods=['POST'])
 def add_task_endpoint():
+    """
+    Add a new task to the task library.
+
+    Request JSON format:
+    {
+        "task_name": "task_name",
+        "task_code": "def task_name(df, **params): ... "
+    }
+
+    Returns:
+    Response JSON format:
+    {
+        "message": "Task 'task_name' added successfully."
+    }
+
+    In case of error:
+    {
+        "error": "error_message"
+    }
+    """
     try:
         data = request.get_json()
         task_name = data['task_name']
         task_code = data['task_code']
-        print("data ",data)
         exec(task_code)
         task_func = locals()[task_name]
         
@@ -39,6 +85,26 @@ def add_task_endpoint():
 
 @app.route('/update_task', methods=['POST'])
 def update_task_endpoint():
+    """
+    Update an existing task in the task library.
+
+    Request JSON format:
+    {
+        "task_name": "task_name",
+        "task_code": "def task_name(df, **params): ... "
+    }
+
+    Returns:
+    Response JSON format:
+    {
+        "message": "Task 'task_name' updated successfully."
+    }
+
+    In case of error:
+    {
+        "error": "error_message"
+    }
+    """
     try:
         data = request.get_json()
         task_name = data['task_name']
@@ -54,6 +120,22 @@ def update_task_endpoint():
 
 @app.route('/list_tasks', methods=['GET'])
 def list_tasks():
+    """
+    List all available tasks in the task library.
+
+    Returns:
+    Response JSON format:
+    [
+        "task_name1",
+        "task_name2",
+        ...
+    ]
+
+    In case of error:
+    {
+        "error": "error_message"
+    }
+    """
     try:
         return jsonify(list(task_mapping.keys()))
     except Exception as e:
