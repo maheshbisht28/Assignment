@@ -25,11 +25,11 @@ This project provides a configurable data processing pipeline framework for data
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-repo/data-pipeline-framework.git
+    git clone https://github.com/maheshbisht28/Assignment.git
     ```
 2. Change to the project directory:
     ```bash
-    cd data-pipeline-framework
+    cd assignment_project
     ```
 3. Create and activate a virtual environment:
     ```bash
@@ -59,6 +59,7 @@ assignment_project/
 ├── README.md
 └── run.py
 
+![image](https://github.com/maheshbisht28/Assignment/assets/46924478/79f3ee91-342e-4cdd-a1fd-302671a91d84)
 
 
 ## Usage
